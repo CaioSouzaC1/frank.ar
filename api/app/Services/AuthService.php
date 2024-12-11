@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Services\Auth;
+namespace App\Services;
 
 use App\Exceptions\ApiException;
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -12,14 +13,20 @@ class AuthService
 {
     public function register($data)
     {
-        
-        return User::create(
+
+        $user = User::create(
             [
                 "name" => $data["name"],
                 "email" => $data["email"],
                 "password"  => Hash::make($data["password"])
             ]
         );
+
+        Admin::create([
+            'user_id' => $user->id
+        ]);
+
+        return $user;
     }
 
     public function login($data)
@@ -33,7 +40,7 @@ class AuthService
 
     public function me()
     {
-        if(!JWTAuth::user()) throw new ApiException("Usuário não encontrado");
+        if (!JWTAuth::user()) throw new ApiException("Usuário não encontrado");
         return JWTAuth::user();
     }
 }

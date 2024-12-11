@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Builder\ReturnApi;
 use App\Exceptions\ApiException;
-use App\Exceptions\ApiExeception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Services\Auth\AuthService;
+use App\Services\AuthService;
 use Throwable;
 
 class AuthController extends Controller
@@ -36,7 +35,6 @@ class AuthController extends Controller
                 $e->getCode()
             );
         }
-
     }
 
     public function login(LoginRequest $request)

@@ -523,7 +523,7 @@ it('Should create a {$this->lowercaseName}', function () {
         '/api/{$this->lowercaseName}',
         \$body,
         [
-            'Bearer ' . \$token,
+           'Authorization' => 'Bearer ' . \$token,
         ]
     );
 
@@ -540,7 +540,7 @@ it('Should delete a {$this->lowercaseName}', function () {
     \$response = \$this->delete(
         '/api/{$this->lowercaseName}/' . \${$this->lowercaseName}->id,
         [
-            'Bearer ' . \$token,
+           'Authorization' => 'Bearer ' . \$token,
         ]
     );
 
@@ -557,7 +557,7 @@ it('Should show a {$this->lowercaseName}', function () {
     \$response = \$this->get(
         '/api/{$this->lowercaseName}/' . \${$this->lowercaseName}->id,
         [
-            'Bearer ' . \$token,
+           'Authorization' => 'Bearer ' . \$token,
         ]
     );
 
@@ -573,7 +573,7 @@ it('Should index {$this->lowercaseName}', function () {
     \$response = \$this->get(
         '/api/{$this->lowercaseName}/',
         [
-            'Bearer ' . \$token,
+           'Authorization' => 'Bearer ' . \$token,
         ]
     );
 
@@ -592,7 +592,7 @@ it('Should update a {$this->lowercaseName}', function () {
         '/api/{$this->lowercaseName}/' . \${$this->lowercaseName}->id,
         \$body,
         [
-            'Bearer ' . \$token,
+           'Authorization' => 'Bearer ' . \$token,
         ]
     );
 

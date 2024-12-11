@@ -33,7 +33,11 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $hidden = [
         'password',
-        'remember_token',
+    ];
+
+    protected $appends = [
+        'type',
+        'admin_id'
     ];
 
     /**
@@ -44,7 +48,6 @@ class User extends Authenticatable implements JWTSubject
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
@@ -57,5 +60,21 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function getTypeAttribute()
+    {
+        if (Admin::where(['user_id' => $this->id])->exists())
+            return 'admin';
+        return 'franchisee';
+    }
+
+    public function getAdminIdAttribute()
+    {
+        $admin = Admin::where(['user_id' => $this->id])->first();
+        if ($admin)
+            return $admin->id;
+        $franchisee = Franchisee::where(['user_id' => $this->id])->first();
+        return $franchisee->admin_id;
     }
 }

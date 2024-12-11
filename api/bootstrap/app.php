@@ -4,6 +4,7 @@ use App\Builder\ReturnApi;
 use App\Exceptions\ApiException;
 use App\Exceptions\ApiExeception;
 use App\Http\Middleware\JwtMiddleware;
+use App\Http\Middleware\UserTypeMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -19,12 +20,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->appendToGroup('auth.api', [JwtMiddleware::class]);
+    $middleware->appendToGroup('auth.api', [JwtMiddleware::class]);
+    $middleware->alias([
+        'type' => UserTypeMiddleware::class
+    ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
 
         $exceptions->renderable(function (NotFoundHttpException $e) {
-            return ReturnApi::error('Route not found');
+        return ReturnApi::error('Rota não encontrada.');
         });
 
         $exceptions->renderable(function (ValidationException $e, $request) {
@@ -32,7 +36,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $exceptions->render(function (Throwable $e, ) {
-            return ReturnApi::error('Unexpected API error.');            
+        return ReturnApi::error('Erro inesperado na api.', $e);            
         });
 
 
