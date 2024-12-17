@@ -54,7 +54,7 @@ class MakeApiCrud extends Command
 
         $parts = explode('/', $this->argument('name'));
         $this->name = ucfirst(end($parts));
-        $this->lowercaseName = lcfirst($this->name);
+        $this->lowercaseName = Str::snake($this->name);
         $this->tableName = Str::plural($this->lowercaseName);
 
         $this->generateReturnApi();
@@ -95,7 +95,7 @@ class MakeApiCrud extends Command
     {
         $filePath = app_path("Builder/ReturnApi.php");
 
-        $this->createDirectoryIfNotExists("Builder");
+        $this->createDirectoryIfNotExists(app_path("Builder"));
 
         $this->createdFileIfNotExists($filePath, $this->getReturnApiContent());
     }
@@ -104,7 +104,7 @@ class MakeApiCrud extends Command
     {
         $filePath = app_path("Exceptions/ApiException.php");
 
-        $this->createDirectoryIfNotExists("Exceptions");
+        $this->createDirectoryIfNotExists(app_path("Exceptions"));
 
         $this->createdFileIfNotExists($filePath, $this->getExceptionContent());
     }
@@ -113,7 +113,7 @@ class MakeApiCrud extends Command
     {
         $filePath = app_path("Models/{$this->name}.php");
 
-        $this->createDirectoryIfNotExists("Models");
+        $this->createDirectoryIfNotExists(app_path("Models"));
 
         $this->createdFileIfNotExists($filePath, $this->getModelContent());
     }
@@ -122,7 +122,7 @@ class MakeApiCrud extends Command
     {
         $filePath = app_path("Services/{$this->name}Service.php");
 
-        $this->createDirectoryIfNotExists("Services");
+        $this->createDirectoryIfNotExists(app_path("Services"));
 
         $this->createdFileIfNotExists($filePath, $this->getServiceContent());
     }
@@ -151,7 +151,7 @@ class MakeApiCrud extends Command
     {
         $filePath = app_path("Http/Controllers/{$this->name}Controller.php");
 
-        $this->createDirectoryIfNotExists("Http/Controllers");
+        $this->createDirectoryIfNotExists(app_path("Http/Controllers"));
 
         $this->createdFileIfNotExists($filePath, $this->getControllerContent());
     }
@@ -324,8 +324,7 @@ class {$this->name}Service
     {
         return {$this->name}::where('id', \$data['id'])->update(\$data);
     }
-}    
-        ";
+}";
     }
 
     protected function getRequestContent($request): string
@@ -338,18 +337,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class {$request} extends FormRequest
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
         ];
     }
-}
-";
+}";
     }
 
     protected function getControllerContent(): string

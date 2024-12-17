@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Franchise extends Model
@@ -24,5 +25,10 @@ class Franchise extends Model
     public function address(): BelongsTo
     {
         return $this->belongsTo(Address::class, 'id', 'address_id');
+    }
+
+    public function units(): HasMany
+    {
+        return $this->hasMany(FranchiseUnit::class, 'franchise_unit_id', 'id');
     }
 }
