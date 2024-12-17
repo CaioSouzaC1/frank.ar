@@ -20,4 +20,6 @@ class AdminInitiator
         $authService = new AuthService();
         return $authService->login(['email' => $user->email, 'password' => 'password']);
     }
+
+    
 }
