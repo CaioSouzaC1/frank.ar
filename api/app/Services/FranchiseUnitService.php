@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Address;
 use App\Models\FranchiseUnit;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -20,7 +21,10 @@ class FranchiseUnitService
 
     public function store(array $data): FranchiseUnit
     {
-        return FranchiseUnit::create($data);
+
+        $address = Address::create($data);
+
+        return FranchiseUnit::create([...$data, 'address_id' => $address->id]);
     }
 
     public function destroy(array $data): bool

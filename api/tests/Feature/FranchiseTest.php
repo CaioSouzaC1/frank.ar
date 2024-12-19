@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Admin;
-use App\Models\Franchise;
 use Tests\Initiators\AdminInitiator;
 
 it('Should create a franchise', function () {
@@ -21,8 +19,6 @@ it('Should create a franchise', function () {
             'Authorization' => 'Bearer ' . $token,
         ]
     );
-
-    dd($response->json());
 
     $response->assertStatus(200);
 });

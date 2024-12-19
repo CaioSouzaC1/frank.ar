@@ -10,7 +10,7 @@ class CityRuleHelper
             $key => [
                 !$optional ? "required" : "nullable",
                 "string",
-                "min:10"
+                "min:4"
             ]
         ];
     }

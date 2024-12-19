@@ -36,7 +36,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $exceptions->render(function (Throwable $e, ) {
-        return ReturnApi::error('Erro inesperado na api.', $e);            
+        return ReturnApi::error('Erro inesperado na api.', $e->getMessage());            
         });
 
 

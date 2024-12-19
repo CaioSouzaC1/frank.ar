@@ -16,8 +16,8 @@ class GenericIdRuleHelper
         ];
     }
 
-    public static function attribute(string $key = 'id'): array
+    public static function attribute(string $key = 'id', $value = 'id'): array
     {
-        return [$key => "id"];
+        return [$key => $value];
     }
 }

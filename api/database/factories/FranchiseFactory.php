@@ -19,7 +19,8 @@ class FranchiseFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'address_id' => Address::factory()->create()->id
+            'primary_color' => fake()->hexColor(),
+            'secondary_color' => fake()->hexColor()
         ];
     }
 }

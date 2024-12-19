@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('franchise_units', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->foreignUuid('franchise_unit_id')->references('id')->on('franchises')->cascadeOnDelete();
+            $table->foreignUuid('franchise_id')->references('id')->on('franchises')->cascadeOnDelete();
             $table->foreignUuid('address_id')->references('id')->on('addresses')->cascadeOnDelete();
+            $table->foreignUuid('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->boolean('is_matrix')->default(false);
             $table->timestamps();
             $table->softDeletes();

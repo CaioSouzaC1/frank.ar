@@ -20,7 +20,7 @@ class AddressFactory extends Factory
             'street' => fake()->streetName(),
             'number' => fake()->randomNumber(2),
             'city' => fake()->city(),
-            'cep' => '12701-050',
+            'cep' => fake()->numberBetween(12702030, 12704090),
             'state' => fake()->streetAddress(),
             'country' => fake()->country(),
             'complement' => fake()->streetName(),

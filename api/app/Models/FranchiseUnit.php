@@ -18,7 +18,8 @@ class FranchiseUnit extends Model
         'name',
         'franchise_id',
         'is_matrix',
-        'address_id'
+        'address_id',
+        'user_id'
     ];
 
     public function franchise(): BelongsTo
@@ -26,10 +27,23 @@ class FranchiseUnit extends Model
         return $this->belongsTo(Franchise::class, 'id', 'franchise_id');
     }
 
+    public function address(): BelongsTo
+    {
+        return $this->belongsTo(Address::class, 'id', 'address_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id', 'user_id');
+    }
+
     protected static function booted()
     {
         static::addGlobalScope('withFranchise', function ($query) {
             $query->with('franchise');
+        });
+        static::addGlobalScope('withAddress', function ($query) {
+            $query->with('address');
         });
     }
 }
